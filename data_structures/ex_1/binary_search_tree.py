@@ -6,35 +6,30 @@ class BinarySearchTree:
         self.storage = [value]
 
     def depth_first_for_each(self, cb):
-        parent_left = self.left
-        parent_right = self.right
-        cb(self.value)
-        current = parent_left
-        cb(current.value)
-        # search through the left subtrees first then through the right
-        while current.left is not None or current.right is not None:
-            if current.left is not None:
-                current = current.left
-            elif current.right is not None:
-                current = current.right
-            cb(current.value)
-        # end of the left side
-        current = parent_right
-        cb(current.value)
-        while current.left is not None or current.right is not None:
-            if current.left is not None:
-                current = current.left
-            elif current.right is not None:
-                current = current.right
-            cb(current.value)
-        # end of the function
-
-    def breadth_first_for_each(self, cb):
-        # since  breadth uses the first in first out method
-        # i set up a "semi" queue in the form of an array.
-        # inserting the items into the array to keep their order true.
+        # storage keeps true order.
         for item in self.storage:
             cb(item)
+
+    def breadth_first_for_each(self, cb):
+
+        left = self.left
+        right = self.right
+        cb(self.value)  # root value
+        if left is not None:
+            cb(left.value)  # left of root
+        if right is not None:
+            cb(right.value)  # right of root
+
+        def checkLevels(node):
+            left = node.left
+            right = node.right
+            if left is not None:
+                cb(left.value)
+            if right is not None:
+                cb(right.value)
+
+        checkLevels(left)
+        checkLevels(right)
 
     def insert(self, value):
         new_tree = BinarySearchTree(value)
