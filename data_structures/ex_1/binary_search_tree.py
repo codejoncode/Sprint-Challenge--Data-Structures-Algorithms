@@ -12,24 +12,59 @@ class BinarySearchTree:
 
     def breadth_first_for_each(self, cb):
 
-        left = self.left
-        right = self.right
-        cb(self.value)  # root value
-        if left is not None:
-            cb(left.value)  # left of root
-        if right is not None:
-            cb(right.value)  # right of root
+        # left = self.left
+        # right = self.right
+        # cb(self.value)  # root value
+        # if left is not None:
+        #     cb(left.value)  # left of root
+        # if right is not None:
+        #     cb(right.value)  # right of root
 
+        # def checkLevels(node):
+        #     left = node.left
+        #     right = node.right
+        #     if left is not None:
+        #         cb(left.value)
+        #     if right is not None:
+        #         cb(right.value)
+
+        # checkLevels(left)
+        # checkLevels(right)
+  
+        cb(self.value)#root value 
+        
         def checkLevels(node):
-            left = node.left
-            right = node.right
-            if left is not None:
-                cb(left.value)
-            if right is not None:
-                cb(right.value)
+            try:
+              left = node.left 
+            except:
+              print ("no left")
+            else: 
+              left = node.left 
+            try:
+              right = node.right
+            except:
+              print("no right")
+            else:
+              right = node.right 
 
-        checkLevels(left)
-        checkLevels(right)
+            
+            count = 0
+            if left is not None: 
+              cb(left.value)# left of root
+              count += 1 
+            if right is not None:
+              cb(right.value)# right of root
+              count += 1 
+
+            if count == 2: 
+              checkLevels(left)
+              checkLevels(right)
+            
+            if left is None or  right is None:
+              return #get out of hex
+            
+        
+        checkLevels(self)
 
     def insert(self, value):
         new_tree = BinarySearchTree(value)
