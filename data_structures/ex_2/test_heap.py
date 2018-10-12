@@ -11,6 +11,7 @@ def gen_random_input(length, max):
 def is_sorted(arr):
   for i in range(len(arr) - 1):
     if arr[i] > arr[i+1]:
+      print(arr[i])
       return False
   return True
 
